@@ -1,0 +1,2 @@
+﻿CREATE USER [GRP-SEC-GLB-BIAA-Contributor-DataEngineer-Dev] FOR EXTERNAL PROVIDER;
+

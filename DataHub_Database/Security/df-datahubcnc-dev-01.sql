@@ -1,0 +1,2 @@
+﻿CREATE USER [df-datahubcnc-dev-01] FOR EXTERNAL PROVIDER;
+
