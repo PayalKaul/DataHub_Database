@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/DataHub_Database/.vs/DataHub_Database
+/DataHub_Database/bin/Debug
+/DataHub_Database/Import Schema Logs
+/DataHub_Database/obj/Debug
