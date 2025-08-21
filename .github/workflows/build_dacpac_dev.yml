@@ -3,12 +3,17 @@ name: Build and upload DACPAC file
 on:
   push:
     branches:
-      - uat
-
+      - uat   # or whichever branch you want to deploy from
+  workflow_dispatch:
+ 
 jobs:
+  debug:
+    runs-on: windows-latest
+    steps:
+      - name: Echo branch
+        run: echo "Running on ${{ github.ref }}"
   build:
     runs-on: windows-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
