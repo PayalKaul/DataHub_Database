@@ -1,4 +1,4 @@
-name: Build and upload DACPAC file
+name: Build and upload DACPAC file from UAT Branch
 
 on:
   push:
@@ -7,11 +7,6 @@ on:
   workflow_dispatch:
  
 jobs:
-  debug:
-    runs-on: windows-latest
-    steps:
-      - name: Echo branch
-        run: echo "Running on ${{ github.ref }}"
   build:
     runs-on: windows-latest
     steps:
