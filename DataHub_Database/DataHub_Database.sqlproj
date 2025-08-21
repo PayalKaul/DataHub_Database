@@ -261,5 +261,6 @@
     <Build Include="Security\procfwk.sql" />
     <Build Include="Security\procfwkHelpers.sql" />
     <Build Include="Security\Sales.sql" />
+    <Build Include="bckup\Tables\Test.sql" />
   </ItemGroup>
 </Project>
