@@ -41,6 +41,9 @@ jobs:
         run: |
           ./sqlpackage/sqlpackage.exe /Action:Publish `
             /SourceFile:"DataHub_Database/bin/Release/DataHub_Database.dacpac" `
-            /TargetConnectionString:"${{ secrets.AZURE_SQL_CONNECTION_STRING }} `
-            /p:AllowIncompatiblePlatform=true `
-            /p:BlockOnPossibleDataLoss=false
+            /TargetServerName:"${{ secrets.AZURE_DB_SERVER }}" `
+            /TargetDatabaseName:"${{ secrets.AZURE_DB_NAME }}" `
+            /TargetUser:"${{ secrets.AZURE_DB_USER }}" `
+            /TargetPassword:"${{ secrets.AZURE_DB_PASSWORD }}" `
+            /p:BlockOnPossibleDataLoss=false `
+            /p:DropObjectsNotInSource=true
