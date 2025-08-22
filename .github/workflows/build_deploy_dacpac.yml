@@ -1,4 +1,4 @@
-name: Build and upload DACPAC file from UAT Branch
+name: Build and Deploy DACPAC
 
 on:
   push:
