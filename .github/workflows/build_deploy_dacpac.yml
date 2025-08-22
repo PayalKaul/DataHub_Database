@@ -1,0 +1,46 @@
+name: Build and upload DACPAC file from UAT Branch
+
+on:
+  push:
+    branches:
+      - uat   # or whichever branch you want to deploy from
+  workflow_dispatch:
+ 
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # Setup MSBuild
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      # Build SQL Database Project (.sqlproj -> .dacpac)
+      - name: Build Database Project
+        run:  msbuild DataHub_Database/DataHub_Database.sqlproj /p:Configuration=Release
+
+      # Upload Dacpac file
+      - name: Upload DACPAC artifact
+        uses: actions/upload-artifact@v4
+        with:
+              name: DataHub_Database
+              path: DataHub_Database/bin/Release/DataHub_Database.dacpac
+              
+      # Install sqlpackage
+      - name: Install sqlpackage
+        run: |
+          curl -L https://aka.ms/sqlpackage-windows -o sqlpackage.zip
+          mkdir sqlpackage
+          tar -xf sqlpackage.zip -C sqlpackage
+          echo "$PWD/sqlpackage" >> $GITHUB_PATH
+            
+       # Deploy DACPAC (explicit path to sqlpackage.exe)
+      - name: Deploy DACPAC to Azure SQL
+        run: |
+          ./sqlpackage/sqlpackage.exe /Action:Publish `
+            /SourceFile:"DataHub_Database/bin/Release/DataHub_Database.dacpac" `
+            /TargetConnectionString:"${{ secrets.AZURE_SQL_CONNECTION_STRING }} `
+            /p:AllowIncompatiblePlatform=true `
+            /p:BlockOnPossibleDataLoss=false
